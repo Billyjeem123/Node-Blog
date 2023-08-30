@@ -32,7 +32,11 @@
                   <td>{{this.title}}</td>
                    <td>{{this.poststatus}}</td>
                     <td>{{this.allow}}</td>
-                    <td><a class="btn btn-info" href="admin/editposts{{this-_id}}">Edit</a></td>
+                 <td><a class="btn btn-info" href="editposts/{{this._id}}">Edit</a></td>
+                <form action="/admin/deletepost/{{this._id}}" method="post">
+               <td><button class="btn btn-info" type="submit">Delete</button></td>
+              </form>
+
                 </tr>
               {{/each}}
               </tbody>

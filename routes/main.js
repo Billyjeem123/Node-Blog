@@ -37,6 +37,7 @@ router.get('/admin/index', (req, res) => {
 
 
 // Admin Routes..........
+
 router.get('/admin/post', (req, res) => {
     res.render('admin/post') // Remove 'views/' from the path
   });
@@ -97,9 +98,55 @@ router.get('/admin/post', (req, res) => {
       res.render('admin/editpost', { post: post }); // Render the editpost template with the found post
     } catch (error) {
       console.error('Error fetching post:', error);
-      res.status(500).json({ error: 'An error occurred while fetching the post' });
+      res.status(500).json({ error: 'An error occurred while fetching the post'. error });
     }
   });
+
+
+
+  router.post('/admin/updatepost/:id', async function(req, res) {
+    try {
+        const postId = req.params.id; // Extract the post ID from the URL parameter
+
+        const updatedPostData = {
+            title: req.body.title,
+            poststatus: req.body.poststatus,
+            desc: req.body.desc,
+            allow: req.body.allow === 'on' // Convert string 'on' to boolean
+        };
+
+        const updatedPost = await Post.findByIdAndUpdate(postId, updatedPostData, { new: true }).lean();
+
+        if (!updatedPost) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        res.send("saved"); // Return the updated post as JSON
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while updating the post.' });
+    }
+});
+
+
+router.post('/admin/deletepost/:id', async (req, res) => {
+  try {
+      const postId = req.params.id;
+
+      // Find the post by ID and delete it
+      const deletedPost = await Post.findByIdAndDelete(postId);
+
+      if (!deletedPost) {
+          return res.status(404).json({ error: 'Post not found' });
+      }
+
+      res.redirect('/admin/getposts');
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred while deleting the post.' });
+  }
+});
+
   
   
 
