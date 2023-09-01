@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const {select} = require('./helpers/helper'); // Import the eq helper
 const methodOverride = require('method-override');
+const upload = require('express-fileupload');
 const dbURL = 'mongodb://127.0.0.1:27017/cms';
 mongoose
   .connect(dbURL, {
@@ -29,6 +30,7 @@ app.engine(
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(methodOverride('_method')); //use   methodOverride
 // app.use(bodyParser.json); // Comment out this line
+   app.use(upload());
 
 // Import routes
 const routes = require('./routes/main');

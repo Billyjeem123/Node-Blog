@@ -9,6 +9,7 @@
                   <th>id</th>
                   <th>Title</th>
                   <th>PostStatus</th>
+                    <th>Image</th>
                   <th>Allow Comment</th>
                   <th>Edit</th>
                     <th>Delete</th>
@@ -19,6 +20,7 @@
                   <th>id</th>
                   <th>Title</th>
                   <th>PostStatus</th>
+                   <th>Image</th>
                   <th>Allow Comment</th>
                    <th>Edit</th>
                     <th>Delete</th>
@@ -30,6 +32,7 @@
                 <tr>
                   <td>{{this._id}}</td>
                   <td>{{this.title}}</td>
+                  <td><img src="/uploads/{{file}}" alt="img" height="100px"></td>
                    <td>{{this.poststatus}}</td>
                     <td>{{this.allow}}</td>
                  <td><a class="btn btn-info" href="editposts/{{this._id}}">Edit</a></td>
